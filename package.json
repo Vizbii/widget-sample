@@ -1,0 +1,14 @@
+{
+  "name": "widget-sample",
+  "version": "1.0.0",
+  "description": "A simple sample of the Morphii Widget",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -a localhost -p 8000 -c-1 -o"
+  },
+  "author": "Morphii Development <dev@morphii.com>",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.9.0"
+  }
+}
