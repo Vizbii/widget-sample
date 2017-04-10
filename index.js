@@ -159,16 +159,22 @@ $(function() {
               // in your database.
               // You can pull other information from the results if you like (i.e. referer, user agent, etc...)
               console.log('Results for target id: ' + record.target_id);
-              console.log('Question: ' + record.reaction_record.target.metadata.question);
-              console.log('morphii id: ' + record.reaction_record.morphii.id);
-              console.log('morphii display name: ' + record.reaction_record.morphii.display_name);
-              console.log('morphii intensity: ' + record.reaction_record.morphii.intensity);
-              if (record.reaction_record.comment) {
-                console.log('comment locale: ' + record.reaction_record.comment.locale);
-                console.log('comment text: ' + record.reaction_record.comment.text);
+              console.log('reaction id: ' + record.reaction_id);
+              if (record.reaction_record) {
+                console.log('Question: ' + record.reaction_record.target.metadata.question);
+                console.log('morphii id: ' + record.reaction_record.morphii.id);
+                console.log('morphii display name: ' + record.reaction_record.morphii.display_name);
+                console.log('morphii intensity: ' + record.reaction_record.morphii.intensity);
+                if (record.reaction_record.comment) {
+                  console.log('comment locale: ' + record.reaction_record.comment.locale);
+                  console.log('comment text: ' + record.reaction_record.comment.text);
+                }
+                else {
+                  console.log('No comment provided');
+                }
               }
               else {
-                console.log('No comment provided');
+                console.log('Subscription for this account has expired or reached the reaction limit.');
               }
             }
             else {
