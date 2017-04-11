@@ -5,6 +5,8 @@
 This is sample code to demonstrate the morphii widget. Note, that this is a demo account with limited access.
 
 ## Getting started
+This sample uses the Node Package Manager. If you do not have Node.js installed you can download and get the install instructions here: https://nodejs.org
+
 Install the dependencies by running `npm install`.
 
 ## Testing
