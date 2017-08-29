@@ -3,8 +3,9 @@ $(function() {
   // Define the widget collection.
   var collection = null;
 
-  // Define the morphii ids that will be used in the widgets. We can provide you
-  // with a list of all the publicly available morphii ids.
+  // Documentation: https://docs.morphii.com/widget_documentation_1_0.html
+  // Define the morphii ids that will be used in the widgets.
+  // Publicly available: https://docs.morphii.com/morphii_list.html
   var morphiiIds = [
     {
       id: '6202173597771890688',
