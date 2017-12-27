@@ -64,10 +64,6 @@ $(function() {
         show: false,   // Set to `true` to see comment field.
         required: false
       },
-      layout: {
-        collapsible: false,
-        max_per_row: 10
-      },
       slider: {
         initial_intensity: 0.2,
         show_animation: true
