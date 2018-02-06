@@ -8,23 +8,23 @@ $(function() {
   // Publicly available: https://docs.morphii.com/morphii_list.html
   var morphiiIds = [
     {
-      id: '6202173597771890688',
+      id: '6363734358316589056',
       name: 'Frustrated'
     },
     {
-      id: '6202173599617384448',
-      name: 'Disappointed'
+      id: '6363488681244622848',
+      name: 'Sad'
     },
     {
       id: '6202184384594837504',
       name: 'Meh'
     },
     {
-      id: '6202173599499943936',
+      id: '6363735117617217536',
       name: 'Disgusted'
     },
     {
-      id: '6202173597872553984',
+      id: '6362666072115564544',
       name: 'Delighted'
     }
   ];
