@@ -78,8 +78,8 @@ $(function() {
 
   function createWidget() {
     var collectionOptions = {
-      client_key: '47941407-64f1-4ca2-a895-1aeb136ac04d',
-      account_id: '15553530',
+      client_key: '349ec763-474f-4084-9dcd-b373ddb778cd',
+      account_id: '17253015',
       project: {
         id: 'widget-sample',
         description: 'Sample widget code.'
@@ -173,7 +173,6 @@ $(function() {
               console.log('Results for target id: ' + record.target_id);
               console.log('reaction id: ' + record.reaction_id);
               if (record.reaction_record) {
-                console.log('Question: ' + record.reaction_record.target.metadata.question);
                 console.log('morphii id: ' + record.reaction_record.morphii.id);
                 console.log('morphii display name: ' + record.reaction_record.morphii.display_name);
                 console.log('morphii intensity: ' + record.reaction_record.morphii.intensity);
