@@ -1,4 +1,5 @@
-$(function() {
+(function(window, document, undefined) {
+  'use strict';
 
   // Define the widget collection.
   var collection = null;
@@ -7,56 +8,53 @@ $(function() {
   // Define the morphii ids that will be used in the widgets.
   // Publicly available: https://docs.morphii.com/morphii_list.html
   var morphiiIds = [
-    { id: '6362674737212084224' },
-    { id: '6362666072115564544' },
-    { id: '6363488681244622848' },
-    { id: '6363734358316589056' },
-    { id: '6363735117617217536' },
-    { id: '6363735353273270272' },
-    { id: '6202184384594837504', name: { en: 'Meh' } },
-    { id: '6202184379079327744' },
-    { id: '6206533129830662144',
-      static_feedback: {
-        show: true,
-        label: {
-          en: 'Please type your answer below:',
-          es: 'Por favor escriba su respuesta a continuación:',
-          zh: '请在下面输入您的答案'
-        }
-      }
-    }
+    { id: '6387684990323101696' },
+    { id: '6387687516724666368' },
+    { id: '6387687738608865280' },
+    { id: '6387686352809422848' },
+    { id: '6387687144609767424' },
+    { id: '6387687069345202176' },
+    { id: '6387687641635434496' }
   ];
 
   // Setup the widget when the page is ready.
-  $(document).ready(function() {
+  window.onload = function() {
     createWidget();
 
     // Add change event to language selection.
-    $('#language-selection').on('change', function(event) {
-      if (collection) {
-        var lang = document.getElementById('language-selection').value;
-        collection.language(lang);
-      }
-    });
+    var langSelection = document.getElementById('language-selection');
+    if (langSelection) {
+      langSelection.addEventListener('change', langSelectionChange);
+    }
 
     // Call submit function when Submitt button is clicked.
-    $('#submit-button').on('click', submit);
+    var submitButton = document.getElementById('submit-button');
+    if (submitButton) {
+      submitButton.addEventListener('click', submit);
 
-    // Disable submit button util a morphii is selected.
-    $('#submit-button').prop('disabled', true);
-  });
+      // Disable submit button util a morphii is selected.
+      submitButton.setAttribute('disabled', 'disabled');
+    }
+  }
+
+  function langSelectionChange(event) {
+    if (collection) {
+      var lang = document.getElementById('language-selection').value;
+      collection.language(lang);
+    }
+  }
 
   // Define the widget options.
-  function widgetOptions(divId, question) {
+  function widgetOptions(qId) {
     return {
-      div_id: divId,
+      div_id: 'widget-' + qId,
       morphii: {
         ids: morphiiIds,
         show_name: true,  // Set to `false` to not display morphii names.
         wrap_name: true
       },
       target : {
-        id: 'target-' + divId,
+        id: qId,
         type : 'question'
       },
       comment: {
@@ -102,22 +100,25 @@ $(function() {
     collection.init(collectionOptions, function(error, valid) {
       if (valid === true) {
         // Add the first widget to the collection.
-        var option = widgetOptions('widget-1', 'How did you feel before your visit?');
+        var option = widgetOptions('q1');
         collection.add(option, function(error, results) {
           if (error) {
             console.log('Collection add error: ' + JSON.stringify(error, null, 2));
           }
           else {
             // Add a second widget.
-            option = widgetOptions('widget-2', 'How did you feel after your visit?');
+            option = widgetOptions('q2');
             collection.add(option, function(error, results) {
               if (error) {
                 console.log('Collection add error: ' + JSON.stringify(error, null, 2));
               }
               else {
                 // Add additional metadata to each widget.
-                collection.addMetadata('widget-1', 'question', 'How did you feel before your visit?');
-                collection.addMetadata('widget-2', 'question', 'How did you feel after your visit?');
+                collection.addMetadata('widget-q1', 'question', 'How did you feel before your visit?');
+                collection.addMetadata('widget-q1', 'question_id', 'q1');
+
+                collection.addMetadata('widget-q2', 'question', 'How did you feel after your visit?');
+                collection.addMetadata('widget-q2', 'question_id', 'q2');
               }
             });
           }
@@ -142,11 +143,14 @@ $(function() {
     // If you do not want this behavior then set the selection->required to
     // false in the widget options above.
     // If selection required is set to false then this callback is not needed.
-    if (event.selection_required_valid === true) {
-      $('#submit-button').prop('disabled', false);
-    }
-    else {
-      $('#submit-button').prop('disabled', true);
+    var submitButton = document.getElementById('submit-button');
+    if (submitButton) {
+      if (event.selection_required_valid === true) {
+        submitButton.removeAttribute('disabled');
+      }
+      else {
+        submitButton.setAttribute('disabled', 'disabled');
+      }
     }
   }
 
@@ -174,6 +178,7 @@ $(function() {
               console.log('reaction id: ' + record.reaction_id);
               if (record.reaction_record) {
                 console.log('morphii id: ' + record.reaction_record.morphii.id);
+                console.log('morphii part name: ' + record.reaction_record.morphii.part_name);
                 console.log('morphii display name: ' + record.reaction_record.morphii.display_name);
                 console.log('morphii intensity: ' + record.reaction_record.morphii.intensity);
                 if (record.reaction_record.comment) {
@@ -197,4 +202,4 @@ $(function() {
       });
     }
   }
-});
+})(window, document);
