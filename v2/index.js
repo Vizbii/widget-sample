@@ -99,29 +99,30 @@
     collection = new MorphiiWidgets.Collection();
     collection.init(collectionOptions, function(error, valid) {
       if (valid === true) {
-        // Add the first widget to the collection.
-        var option = widgetOptions('q1');
-        collection.add(option, function(error, results) {
-          if (error) {
-            console.log('Collection add error: ' + JSON.stringify(error, null, 2));
-          }
-          else {
-            // Add a second widget.
-            option = widgetOptions('q2');
-            collection.add(option, function(error, results) {
-              if (error) {
-                console.log('Collection add error: ' + JSON.stringify(error, null, 2));
-              }
-              else {
-                // Add additional metadata to each widget.
-                collection.addMetadata('widget-q1', 'question', 'How did you feel before your visit?');
-                collection.addMetadata('widget-q1', 'question_id', 'q1');
+        // Add the widget to each question on the page.
+        ['q1', 'q2'].forEach(function(qId) {
+          var option = widgetOptions(qId);
+          collection.add(option, function(error, results) {
+            if (error) {
+              console.log('Collection add error: ' + JSON.stringify(error, null, 2));
+            }
+            else {
+              var divId = results.configuration.div_id;
+              var targetId = results.configuration.target.id;
 
-                collection.addMetadata('widget-q2', 'question', 'How did you feel after your visit?');
-                collection.addMetadata('widget-q2', 'question_id', 'q2');
-              }
-            });
-          }
+              // The target id (in the widget options) was set as the element id
+              // for the question text.
+              var questionText = document.getElementById(targetId).textContent;
+
+              // Add additional metadata to widget.
+              collection.addMetadata(divId, 'question_id', targetId);
+              collection.addMetadata(divId, 'question', questionText);
+
+              collection.addMetadata(divId, 'foo1', 'bar1');
+              collection.addMetadata(divId, 'foo2', 'bar2');
+              collection.addMetadata(divId, 'foo3', 'bar3');
+            }
+          });
         });
       }
       else {
@@ -129,7 +130,6 @@
       }
     });
   }
-
 
   // The Collection widget error callback
   function errorCallback(error) {
