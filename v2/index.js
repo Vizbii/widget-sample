@@ -63,10 +63,16 @@
       },
       slider: {
         initial_intensity: 0.2,
-        show_animation: true
+        show_animation: true,
+        anchor_labels: {
+          show: true
+        }
       },
       selection: {
         required: true  // Set to `false` to not require selection.
+      },
+      instructions: {
+        show: true
       },
       options: {
         stage: 'test'
